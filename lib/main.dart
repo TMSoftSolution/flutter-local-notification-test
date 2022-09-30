@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_app_badger/flutter_app_badger.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 int id = 0;
@@ -293,9 +294,10 @@ class _MyHomePageState extends State<MyHomePage> {
   void _configureSelectNotificationSubject() {
     selectNotificationStream.stream.listen((String? payload) async {
       print('tapped notification');
-      await Navigator.of(context).push(MaterialPageRoute<void>(
-        builder: (BuildContext context) => SecondPage(payload),
-      ));
+      FlutterAppBadger.removeBadge();
+      // await Navigator.of(context).push(MaterialPageRoute<void>(
+      //   builder: (BuildContext context) => SecondPage(payload),
+      // ));
     });
   }
 

@@ -260,6 +260,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void _configureDidReceiveLocalNotificationSubject() {
     didReceiveLocalNotificationStream.stream
         .listen((ReceivedNotification receivedNotification) async {
+      print('received notification');
       await showDialog(
         context: context,
         builder: (BuildContext context) => CupertinoAlertDialog(
@@ -291,6 +292,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _configureSelectNotificationSubject() {
     selectNotificationStream.stream.listen((String? payload) async {
+      print('tapped notification');
       await Navigator.of(context).push(MaterialPageRoute<void>(
         builder: (BuildContext context) => SecondPage(payload),
       ));
@@ -338,8 +340,11 @@ class _MyHomePageState extends State<MyHomePage> {
         AndroidNotificationDetails(
             'repeating channel id', 'repeating channel name',
             channelDescription: 'repeating description');
-    const NotificationDetails notificationDetails =
-        NotificationDetails(android: androidNotificationDetails);
+    const DarwinNotificationDetails darwinNotificationDetails =
+        DarwinNotificationDetails(badgeNumber: 1);
+
+    const NotificationDetails notificationDetails = NotificationDetails(
+        android: androidNotificationDetails, iOS: darwinNotificationDetails);
     await flutterLocalNotificationsPlugin.periodicallyShow(
         id++,
         'Local Notificaton Test',
